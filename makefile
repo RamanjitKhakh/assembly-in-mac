@@ -8,3 +8,5 @@ compile: test.c
 
 link: test.o new.o
 	ld -lc ./test.o ./new.o -e _main -o ./newTest
+
+#in order to use printf in c you need to flush the buffer w/ \n

@@ -22,5 +22,5 @@ _mystart:
 
 section .data
 
-	mymsg	db	"Hello from assembly", 0xa 
+	mymsg	db	"Hello from assembly    ", 0xa 
 	mylen   equ	$-mymsg  ; calculates the length
