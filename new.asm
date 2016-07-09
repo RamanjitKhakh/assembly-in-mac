@@ -17,7 +17,7 @@ _mystart:
 
 
 	sub esp, 12
-	mov long[esp], message
+	mov dword[esp], message
 	call _printf
 	add  esp, 12
 
@@ -28,6 +28,15 @@ _mystart:
 	;sub  esp, 4 	 ; that "extra" space
 	;int  0x80
 	
+	sub esp, 8
+	push dword mylen
+	push dword printFormat 
+	;pushing in this order is the same as printf("the length of mymsg is %d", mylen);
+	call _printf
+	add  esp, 16
+
+
+	
 	xor   eax, eax ; return 0
 	ret
 section .data
@@ -35,3 +44,5 @@ section .data
 	mymsg	db	"Hello from assembly", 0xa, 0 
 	mylen   equ	$-mymsg  ; calculates the length
 	message db	"Another way of printing", 0xa, 0
+	printFormat db  "the length of mymsg is %d", 0xa, 0
+
