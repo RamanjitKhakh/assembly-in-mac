@@ -14,7 +14,7 @@ endstruc
 section .text
 
 _printStruct:
-	mov  ebx, record_size
+	mov  ebx, record_size ; <struct_name><field> no dot operator
 	sub  esp, 8
 	push dword ebx
 	push dword lengthString
@@ -35,4 +35,3 @@ recordStr:
 
 lengthString db "length of struct is %d", 0xa, 0
 
-structLen  equ  $ - recordStr
