@@ -31,25 +31,11 @@ _Cpuid_:
 	mov  	rcx, rsi
 	cpuid
 
-	
-
-	;mov	 	rdi, sent
-	;mov		rsi, r9
-	;call  	_printf	
-
-	;mov	 	rdi, sent
-	;mov		rsi, r9
-	;call  	_printf	
-
-
 	mov  	rsi, r9
 	mov  	dword[rsi+RegEAX], eax
 	mov  	dword[rsi+RegEBX], ebx
 	mov  	dword[rsi+RegECX], ecx
 	mov  	dword[rsi+RegEDX], edx
-
-	;mov		rdi, sentence
-	;call	_printf
 
 	or  	rax, rbx
 	or  	rcx, rdx
