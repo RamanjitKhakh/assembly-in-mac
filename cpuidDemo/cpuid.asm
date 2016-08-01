@@ -20,13 +20,14 @@ section .text
 
 extern _printf
 global _Cpuid_
+global _Xgetbv_
 
 _Cpuid_:
 	push	rdi
 	push	rsi
 	push	rdx	
 
-	mov		r9, rdx
+	mov	r9, rdx
 	mov  	rax, rdi
 	mov  	rcx, rsi
 	cpuid
@@ -44,4 +45,20 @@ _Cpuid_:
 	pop		rdx
 	pop		rsi
 	pop		rdi
+	ret
+
+_Xgetbv_:
+	push	rbp
+	mov	r9, rdx
+		
+	mov	rcx, rdi
+	xgetbv
+	
+	mov	rcx, rsi
+	mov	dword[rcx], eax	
+
+	mov	rcx, r9
+	mov	dword[rcx], edx
+
+	pop	rbp
 	ret

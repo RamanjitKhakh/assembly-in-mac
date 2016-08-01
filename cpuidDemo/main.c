@@ -57,6 +57,18 @@ int main(){
 	printf("SSE4_1: %d\n", cf.SSE4_1);
 	printf("SSE4_2: %d\n", cf.SSE4_2);
 	printf("POPCNT: %d\n", cf.POPCNT);
+	printf("AVX: %d\n", cf.AVX);
+	printf("F16C: %d\n", cf.F16c);
+	printf("FMA: %d\n", cf.FMA);
+	printf("AVX2: %d\n", cf.AVX2);
+	printf("BMI1: %d\n", cf.BMI1);
+	printf("BMI2: %d\n", cf.BMI2);
+	printf("LZCNT: %d\n", cf.LZCNT);
+	printf("MOVBE: %d\n", cf.MOVBE);
+	printf("\n");
+	printf("OSXSAVE %d\n", cf.OSXSAVE);
+	printf("SSE_STATE %d\n", cf.SSE_STATE);
+	printf("AVX_STATE %d\n", cf.AVX_STATE);
 	return 0;
 }
 
@@ -105,6 +117,26 @@ void GetCpuidFeatures(CpuidFeatures  *cf){
 
 
 	cf->OSXSAVE = (cpuid01_ecx & (0x1<<27)) ? true : false;
+
+	if(cf->OSXSAVE){
+
+		Uint32 xgetbv_eax, xgetbv_edx;
+		Xgetbv_(0, &xgetbv_eax, &xgetbv_edx);
+		cf->SSE_STATE = (xgetbv_eax & (0x1 << 1)) ? true : false;
+		cf->AVX_STATE = (xgetbv_eax & (0x1 << 2)) ? true : false;
+
+		if(cf->SSE_STATE && cf->AVX_STATE){
+			cf->AVX = (cpuid01_ecx & (0x1 << 28)) ? true : false;
+
+			if(cf->AVX){
+				cf->F16c = (cpuid01_ecx & (0x1 << 29)) ? true : false;
+
+				cf->FMA = (cpuid01_ecx & (0x1 << 12)) ? true : false;
+
+				cf->AVX2 = (cpuid07_ebx & (0x1 << 5)) ? true : false;
+			}
+		}
+	}
 	
 
 }
