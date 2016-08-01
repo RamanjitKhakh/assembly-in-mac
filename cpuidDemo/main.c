@@ -138,5 +138,15 @@ void GetCpuidFeatures(CpuidFeatures  *cf){
 		}
 	}
 	
+	cf->BMI1 = (cpuid07_ebx & (0x1 << 3)) ? true : false;
+
+	cf->BMI2 = (cpuid07_ebx & (0x1 << 8)) ? true : false;
+
+	Cpuid_(0x80000001, 0, &r_out);
+
+	cf->LZCNT = (r_out.ECX & (0X1 << 5)) ? true : false;
+
+	cf->MOVBE = cpuid01_ecx & (0x1 << 22) ? true : false;
+	
 
 }
