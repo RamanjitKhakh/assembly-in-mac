@@ -1,5 +1,5 @@
 ; Function signature 
-; void _arthimeticAvx(double a, double b, double *c)i
+; void arthimeticAvx(double a, double b, double *c)i
 ; Things to know
 ; printf looks at the rax register to determine if the
 ; parameters for format argument come from general purpose
@@ -20,10 +20,10 @@ section .data
 
 section .text
 
-extern _printf
-global _arthimeticAvx
+extern printf
+global arthimeticAvx
 
-_arthimeticAvx:
+arthimeticAvx:
 	sub	rsp, 8
 	
 	;this print statemnet will show you the 
@@ -34,7 +34,7 @@ _arthimeticAvx:
 
 	;clearing the rax register denotes there are 
 	; no xmm float parameters
-	;call	_printf
+	;call	printf
 
 	vaddsd	xmm2, xmm0, xmm1
 	vsubsd	xmm3, xmm0, xmm1
