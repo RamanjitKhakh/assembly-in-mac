@@ -17,7 +17,7 @@ DEFAULT REL
 section .data
 	sentence dq "welcome to the assembly ", 0x0a, 0
 	sent2 dq "the num %lf %lf  %lf    ", 0x0a, 0
-
+	AbsMask dq 7fffffffffffffffh, 7fffffffffffffffh
 section .text
 
 extern printf
@@ -39,12 +39,24 @@ arthimeticAvx:
 	vaddsd	xmm2, xmm0, xmm1
 	vsubsd	xmm3, xmm0, xmm1
 	vmulsd	xmm4, xmm0, xmm1
-	vdivsd	xmm5, xmm0, xmm1
+	vdivsd	xmm5, xmm0, xmm1	
 	
 	vmovsd	qword[rdi], xmm2
 	vmovsd	qword[rdi+8], xmm3
 	vmovsd	qword[rdi+16], xmm4
 	vmovsd	qword[rdi+24], xmm5
+	
+	; min(a,b)
+	vminsd	xmm2, xmm0, xmm1
+	; max(a,b)
+	vmaxsd	xmm3, xmm0, xmm1 
+	vsqrtsd	xmm4, xmm0, xmm1
+	vandpd	xmm5, xmm1, [AbsMask]
+	
+	vmovsd	qword[rdi+32], xmm2
+	vmovsd	qword[rdi+40], xmm3
+	vmovsd	qword[rdi+48], xmm4
+	vmovsd	qword[rdi+56], xmm5
 
 	add	rsp, 8
 	ret	
