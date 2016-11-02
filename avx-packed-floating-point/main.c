@@ -5,7 +5,7 @@ void packArithmetic(float *a, float *b, float *c);
 int main(int argc, char **argv){
 	float a[8];
 	float b[8];
-	float c[8];
+	float c[16];
 	int i;
 	printf("\nthe size of float is %d\n", sizeof(float));
 	a[0] = 1.0;  b[0] = 2.33;
@@ -19,7 +19,10 @@ int main(int argc, char **argv){
 
 	packArithmetic(a,b,c);
 	
-	for(i = 0; i<8; i++){
+	for(i = 0; i<16; i++){
+		if(!(i%8)){
+			printf("-------------\n");
+		}
 		printf("%f\n", c[i]);
 	}
 
