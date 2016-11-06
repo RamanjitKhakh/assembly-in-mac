@@ -34,5 +34,19 @@ packArithmetic
 	movaps	xmm2, xmm0
 	subps	xmm2, xmm1
 	movaps	[rdx+48], xmm2
+	
+	; dividing
+	movaps	xmm0, [rdi]
+	movaps	xmm1, [rsi]
+	movaps	xmm2, xmm0
+	divps	xmm2, xmm1
+	movaps	[rdx+64], xmm2
+
+	movaps	xmm0, [rdi+16]
+	movaps	xmm1, [rsi+16]
+	movaps	xmm2, xmm0
+	divps	xmm2, xmm1
+	movaps	[rdx+80], xmm2
+
 	add	rsp, 8
 	ret
